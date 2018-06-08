@@ -119,3 +119,13 @@ These are api endpoints :
                                      "message": "Removed 1 pet"
                                  }
 
+## Demonstration
+#### Public API
+**Live Demo:**
+ [https://npetshelterapi.herokuapp.com/api/pets]( https://npetshelterapi.herokuapp.com/api/pets) <br/>
+**Github:** 
+[https://github.com/masudiit/PetShelterApi](https://github.com/masudiit/PetShelterApi) <br/>
+#### Public App
+**Live Demo:**
+[https://npetshelterapp.herokuapp.com](https://npetshelterapp.herokuapp.com) <br/> 
+**Github:** [https://github.com/masudiit/PetShelterApp/](https://github.com/masudiit/PetShelterApp/) <br/>
