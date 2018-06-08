@@ -2,7 +2,6 @@ const axios = require('axios');
 const debug = require('debug')('app:locationService');
 
 function locationService(nav) {
-
   function createResponse(data) {
     return {status: 'success', message: data};
   }
@@ -28,38 +27,39 @@ function locationService(nav) {
     const longitude = req.params.lon;
     // verify whether latitude is valid
     if (!validLatitude(parseFloat(latitude))) {
-      res.json(createError(`Invalid latitude ${  latitude}`));
+      res.json(createError(`Invalid latitude ${latitude}`));
       return;
     }
     // verify whether longitude is valid
     if (!validLongitude(parseFloat(longitude))) {
-      res.json(createError(`Invalid longitude ${  longitude}`));
+      res.json(createError(`Invalid longitude ${ longitude}`));
       return;
     }
 
-    // return new Promise((resolve, reject) => {
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${req.params.lat},${req.params.lon}`)
-      .then((response) => {
-        let passFail = 'success';
-        if (response.data.results.length > 0) { passFail = 'success'; } else { passFail = 'fail'; }
-        res.status(200)
-          .json({
-            status: passFail,
-            message: response.data.results[0],
-          });
-      })
-      .catch((error) => {
-        // reject(error);
-        debug(error);
-        res.status(400)
-          .json({
-            status: 'fail'
-          });
-      //  });
-      });
+    return new Promise((resolve, reject) => {
+      axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${req.params.lat},${req.params.lon}`)
+        .then((response) => {
+          let passFail = 'success';
+          if (response.data.results.length > 0) { passFail = 'success'; } else { passFail = 'fail'; }
+          resolve(passFail);
+          res.status(200)
+            .json({
+              status: passFail,
+              message: response.data.results[0],
+            });
+        })
+        .catch((error) => {
+          resolve('fail');
+          debug(error);
+          res.status(400)
+            .json({
+              status: 'fail'
+            });
+        });
+    });
   }
 
- 
+
   return {getLocationInfoByLongLat};
 }
 
