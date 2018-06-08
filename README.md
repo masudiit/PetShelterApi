@@ -51,11 +51,14 @@ These are api endpoints :
 
 
 5.	GET /api/services/isvalidloc/{lat}/{lon} : Return range validation result of latitude and longitude. A latitude valid range is -90 to +90  and longitude valid range is -180 to + 180.
+
                       {
                           "status": "success",
                           "message": "valid"
                       }
+                      
                                        Or  
+                                       
                       {
                           "status": "fail",
                           "error": "Invalid longitude -214.618894"
