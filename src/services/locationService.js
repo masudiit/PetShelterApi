@@ -2,8 +2,40 @@ const axios = require('axios');
 const debug = require('debug')('app:locationService');
 
 function locationService(nav) {
+
+  function createResponse(data) {
+    return {status: 'success', message: data};
+  }
+
+  function createError(err) {
+    return {status: 'fail', error: err};
+  }
+
+
+  function validLatitude(x) {
+    return x >= -90 && x <= 90;
+  }
+
+  function validLongitude(x) {
+    return x >= -180 && x <= 180;
+  }
+
+
   function getLocationInfoByLongLat(req, res) {
     debug('getLocationInfoByLongLat');
+
+    const latitude = req.params.lat;
+    const longitude = req.params.lon;
+    // verify whether latitude is valid
+    if (!validLatitude(parseFloat(latitude))) {
+      res.json(createError(`Invalid latitude ${  latitude}`));
+      return;
+    }
+    // verify whether longitude is valid
+    if (!validLongitude(parseFloat(longitude))) {
+      res.json(createError(`Invalid longitude ${  longitude}`));
+      return;
+    }
 
     // return new Promise((resolve, reject) => {
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${req.params.lat},${req.params.lon}`)
@@ -26,6 +58,8 @@ function locationService(nav) {
       //  });
       });
   }
+
+ 
   return {getLocationInfoByLongLat};
 }
 
