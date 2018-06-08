@@ -1,0 +1,14 @@
+{ 
+    "App" : {
+            "Port" :"5000"
+         },
+      "PostgresDb" :
+      {
+            "connectionString" : "postgres://gvrkfmrhydwukd:8da8d03fdd015a72a18443d7b144a7e4c2f146e7f22c80a49191f3922d9e9052@ec2-54-204-18-53.compute-1.amazonaws.com:5432/d3u1ob1ffo359c"    
+      },
+      "DarkSky": {
+          "ApiKey" : "52e277612fecd8c703e644cfbdeb4d3c"
+      }
+    
+    
+    }
