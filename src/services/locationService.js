@@ -5,11 +5,9 @@ function locationService(nav) {
   function createResponse(data) {
     return {status: 'success', message: data};
   }
-
   function createError(err) {
     return {status: 'fail', error: err};
   }
-
 
   function validLatitude(x) {
     return x >= -90 && x <= 90;
@@ -20,9 +18,7 @@ function locationService(nav) {
   }
 
 
-  function getLocationInfoByLongLat(req, res) {
-    debug('getLocationInfoByLongLat');
-
+  function isValidCordination(req, res) {
     const latitude = req.params.lat;
     const longitude = req.params.lon;
     // verify whether latitude is valid
@@ -32,35 +28,38 @@ function locationService(nav) {
     }
     // verify whether longitude is valid
     if (!validLongitude(parseFloat(longitude))) {
-      res.json(createError(`Invalid longitude ${ longitude}`));
-      return;
+      res.json(createError(`Invalid longitude ${longitude}`));
     }
-
-    return new Promise((resolve, reject) => {
-      axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${req.params.lat},${req.params.lon}`)
-        .then((response) => {
-          let passFail = 'success';
-          if (response.data.results.length > 0) { passFail = 'success'; } else { passFail = 'fail'; }
-          resolve(passFail);
-          res.status(200)
-            .json({
-              status: passFail,
-              message: response.data.results[0],
-            });
-        })
-        .catch((error) => {
-          resolve('fail');
-          debug(error);
-          res.status(400)
-            .json({
-              status: 'fail'
-            });
-        });
-    });
   }
 
 
-  return {getLocationInfoByLongLat};
+  function getLocationInfoByLongLat(req, res) {
+    debug('getLocationInfoByLongLat');
+    //  return new Promise((resolve, reject) => {
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${req.params.lat},${req.params.lon}`)
+      .then((response) => {
+        let passFail = 'success';
+        if (response.data.results.length > 0) { passFail = 'success'; } else { passFail = 'fail'; }
+        // resolve(passFail);
+        res.status(200)
+          .json({
+            status: passFail,
+            message: response.data.results[0],
+          });
+      })
+      .catch((error) => {
+        // resolve('fail');
+        debug(error);
+        res.status(400)
+          .json({
+            status: 'fail'
+          });
+        // });
+      });
+  }
+
+
+  return {getLocationInfoByLongLat, isValidCordination};
 }
 
 module.exports = locationService;
