@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const config = require('config');
 
 const app = express();
-const port = config.get('App.Port');
+const port = process.env.PORT || config.get('App.Port');
 
 const nav = [{}];
 app.use(morgan('tiny'));
