@@ -1,0 +1,14 @@
+{ 
+"App" : {
+        "Port" :"5000"
+     },
+  "PostgresDb" :
+  {
+        "connectionString" : "postgres://postgres:12345@localhost:5433/petweather"    
+  },
+  "DarkSky": {
+      "ApiKey" : "52e277612fecd8c703e644cfbdeb4d3c"
+  }
+
+
+}
