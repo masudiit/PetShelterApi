@@ -21,15 +21,12 @@ function locationService(nav) {
   function isValidCordination(req, res) {
     const latitude = req.params.lat;
     const longitude = req.params.lon;
-    // verify whether latitude is valid
+
     if (!validLatitude(parseFloat(latitude))) {
       res.json(createError(`Invalid latitude ${latitude}`));
-      return;
-    }
-    // verify whether longitude is valid
-    if (!validLongitude(parseFloat(longitude))) {
+    } else if (!validLongitude(parseFloat(longitude))) {
       res.json(createError(`Invalid longitude ${longitude}`));
-    }
+    } else res.json(createResponse('valid'));
   }
 
 
