@@ -25,9 +25,6 @@ function darkSkyApiService(nav) {
           reject(error);
           debug(error);
         });
-
-
-      // resolve({ description: 'our description'});
     });
   }
   return {getDarkAkyApiByLongLat};
